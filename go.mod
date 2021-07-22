@@ -1,4 +1,4 @@
-module github.com/unixpickle/gobfuscate
+module gobfuscate2
 
 go 1.15
 
