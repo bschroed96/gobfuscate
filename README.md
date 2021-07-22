@@ -6,7 +6,7 @@ With gobfuscate, you can compile a Go binary from obfuscated source code. This m
 
 # How to use
 ```
-go get -u github.com/unixpickle/gobfuscate
+go get -u github.com/bschroed96/gobfuscate
 gobfuscate [flags] pkg_name out_path
 ```
 `pkg_name` is the path relative from your $GOPATH/src to the package to obfuscate (typically something like domain.tld/user/repo)
