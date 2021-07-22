@@ -1,4 +1,4 @@
-module gobfuscate2
+module github.com/bschroed96/gobfuscate2
 
 go 1.15
 
