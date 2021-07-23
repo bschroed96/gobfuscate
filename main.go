@@ -73,7 +73,7 @@ func obfuscate(pkgName, outPath string) bool {
 	log.Println("Copying GOPATH...")
 
 	if err := CopyGopath(pkgName, newGopath, keepTests); err != nil {
-		fmt.Fprintln(os.Stderr, "Failed to copy into a new GOPATH:", err)
+		fmt.Fprintln(os.Stderr, "Failed to copy into a newish GOPATH:", err)
 		return false
 	}
 	var n NameHasher
