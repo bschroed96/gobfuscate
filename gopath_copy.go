@@ -71,6 +71,7 @@ func findDeps(packageName string, ctx *build.Context) (map[string]bool, error) {
 
 func copyDep(pkg *build.Package, newGopath string, keepTests bool) error {
 	newPath := filepath.Join(newGopath, "src", pkg.ImportPath)
+	fmt.Fprintln(Stdout, "The new path to copy src to: ", newPath)
 	err := os.MkdirAll(newPath, 0755)
 	if err != nil {
 		return err
