@@ -72,7 +72,7 @@ func obfuscate(pkgName, outPath string) bool {
 		stat, ok := fileinfo.Sys().(*syscall.Stat_t)
 		if !ok {
 			fmt.Printf("Not a syscall.Stat_t")
-			return
+			return false
 		}
 		fmt.Printf("stat = %#v\n", stat)
 		fmt.Printf("stat.Ino = %#v\n", stat.Ino)
