@@ -66,7 +66,7 @@ func obfuscate(pkgName, outPath string) bool {
 		fmt.Fprintln(os.Stdout, "Temp Go Path Not Being Found:", newGopath)
 		fmt.Fprintln(os.Stdout, "=================================")
 		file := newGopath
-		fileinfo, fileerr := os.Stat(file)
+		fileinfo, _ := os.Stat(file)
 		fmt.Printf("fileinfo.Sys() = %#v\n", fileinfo.Sys())
 		fmt.Printf("fileinfo = %#v\n", fileinfo)
 		stat, ok := fileinfo.Sys().(*syscall.Stat_t)
