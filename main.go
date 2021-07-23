@@ -62,6 +62,7 @@ func obfuscate(pkgName, outPath string) bool {
 	} else {
 		var err error
 		newGopath, err = ioutil.TempDir("", "")
+		fmt.Fprintln(os.Stdout, "Temp Go Path Not Being Found:", newGopath)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Failed to create temp dir:", err)
 			return false
