@@ -51,10 +51,10 @@ func CopyGopath(packageName, newGopath string, keepTests bool) error {
 		}
 	}
 
-	if err := removeUnusedPkgs(newGopath, allDeps); err != nil {
-		fmt.Fprintln(os.Stdout, "I failed to remove unused packages")
-		return err
-	}
+	// if err := removeUnusedPkgs(newGopath, allDeps); err != nil {
+	// 	fmt.Fprintln(os.Stdout, "I failed to remove unused packages")
+	// 	return err
+	// }
 	return nil
 }
 
