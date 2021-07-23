@@ -27,7 +27,7 @@ func CopyGopath(packageName, newGopath string, keepTests bool) error {
 		fmt.Fprintln(os.Stdout, "I failed to findDeps")
 		return err
 	}
-
+	fmt.Fprintln(os.Stdout, "================ Entering range loop ================")
 	for dep := range allDeps {
 		pkg, err := build.Default.Import(dep, rootPkg.Dir, 0)
 		if err != nil {
@@ -37,6 +37,7 @@ func CopyGopath(packageName, newGopath string, keepTests bool) error {
 		if pkg.Goroot {
 			continue
 		}
+		fmt.Fprintln(os.Stdout, "================ Executing copyDep... ================")
 		if err := copyDep(pkg, newGopath, keepTests); err != nil {
 			fmt.Fprintln(os.Stdout, "I failed to copyDep")
 			return err
