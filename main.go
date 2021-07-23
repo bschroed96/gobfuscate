@@ -10,9 +10,6 @@ import (
 	"os"
 	"os/exec"
 	"strings"
-	"syscall"
-	"io/ioutil"
-	"log"
 )
 
 // Command line arguments.
