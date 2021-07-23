@@ -35,6 +35,7 @@ func CopyGopath(packageName, newGopath string, keepTests bool) error {
 			continue
 		}
 		if err := copyDep(pkg, newGopath, keepTests); err != nil {
+			fmt.Fprintln(os.Stdout, "I failed to copyDep:")
 			return err
 		}
 	}
