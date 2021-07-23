@@ -18,24 +18,27 @@ func CopyGopath(packageName, newGopath string, keepTests bool) error {
 
 	rootPkg, err := ctx.Import(packageName, "", 0)
 	if err != nil {
+		fmt.Fprintln(os.Stdout, "I failed to ctx.Import")
 		return err
 	}
 
 	allDeps, err := findDeps(packageName, &ctx)
 	if err != nil {
+		fmt.Fprintln(os.Stdout, "I failed to findDeps")
 		return err
 	}
 
 	for dep := range allDeps {
 		pkg, err := build.Default.Import(dep, rootPkg.Dir, 0)
 		if err != nil {
+			fmt.Fprintln(os.Stdout, "I failed to build default Import")
 			return err
 		}
 		if pkg.Goroot {
 			continue
 		}
 		if err := copyDep(pkg, newGopath, keepTests); err != nil {
-			fmt.Fprintln(os.Stdout, "I failed to copyDep:")
+			fmt.Fprintln(os.Stdout, "I failed to copyDep")
 			return err
 		}
 	}
@@ -49,6 +52,7 @@ func CopyGopath(packageName, newGopath string, keepTests bool) error {
 	}
 
 	if err := removeUnusedPkgs(newGopath, allDeps); err != nil {
+		fmt.Fprintln(os.Stdout, "I failed to remove unused packages")
 		return err
 	}
 	return nil
