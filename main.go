@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"syscall"
 )
 
 // Command line arguments.
@@ -63,6 +64,19 @@ func obfuscate(pkgName, outPath string) bool {
 		var err error
 		newGopath, err = ioutil.TempDir("", "")
 		fmt.Fprintln(os.Stdout, "Temp Go Path Not Being Found:", newGopath)
+		fmt.Fprintln(os.Stdout, "=================================")
+		file := newGopath
+		fileinfo, fileerr := os.Stat(file)
+		fmt.Printf("fileinfo.Sys() = %#v\n", fileinfo.Sys())
+		fmt.Printf("fileinfo = %#v\n", fileinfo)
+		stat, ok := fileinfo.Sys().(*syscall.Stat_t)
+		if !ok {
+			fmt.Printf("Not a syscall.Stat_t")
+			return
+		}
+		fmt.Printf("stat = %#v\n", stat)
+		fmt.Printf("stat.Ino = %#v\n", stat.Ino)
+		fmt.Fprintln(os.Stdout, "=================================")
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Failed to create temp dir:", err)
 			return false
@@ -73,7 +87,7 @@ func obfuscate(pkgName, outPath string) bool {
 	log.Println("Copying GOPATH...")
 
 	if err := CopyGopath(pkgName, newGopath, keepTests); err != nil {
-		fmt.Fprintln(os.Stderr, "Failed to copy into a newish GOPATH:", err)
+		fmt.Fprintln(os.Stderr, "Failed to copy into a new GOPATH:", err)
 		return false
 	}
 	var n NameHasher
