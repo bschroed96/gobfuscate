@@ -11,6 +11,8 @@ import (
 	"os/exec"
 	"strings"
 	"syscall"
+	"io/ioutil"
+	"log"
 )
 
 // Command line arguments.
@@ -66,16 +68,14 @@ func obfuscate(pkgName, outPath string) bool {
 		fmt.Fprintln(os.Stdout, "Temp Go Path Not Being Found:", newGopath)
 		fmt.Fprintln(os.Stdout, "=================================")
 		file := newGopath
-		fileinfo, _ := os.Stat(file)
-		fmt.Printf("fileinfo.Sys() = %#v\n", fileinfo.Sys())
-		fmt.Printf("fileinfo = %#v\n", fileinfo)
-		stat, ok := fileinfo.Sys().(*syscall.Stat_t)
-		if !ok {
-			fmt.Printf("Not a syscall.Stat_t")
-			return false
+		files, err := ioutil.ReadDir(file)
+		if err != nil {
+			log.Fatal(err)
 		}
-		fmt.Printf("stat = %#v\n", stat)
-		fmt.Printf("stat.Ino = %#v\n", stat.Ino)
+	 
+		for _, f := range files {
+				fmt.Println(f.Name())
+		}
 		fmt.Fprintln(os.Stdout, "=================================")
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Failed to create temp dir:", err)
